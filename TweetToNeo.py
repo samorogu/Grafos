@@ -12,26 +12,18 @@ from py2neo import authenticate
 
 
 
-#authenticate("localhost:7474","neo4j","penca")
+
 #graphdb = Graph('http://localhost:7474/default.graphdb')
 
-#Mau
-#consumer_key = 'IS2SJPjhjUNo1p5wEBCaLrySs'
-#consumer_secret = 's24uDnvsipd7BmY3mm0MQnoUgQdvbrZFGKRR8cKzV6rwEUguRq'
-#access_token = '130016669-EQosVMOa4uxxYa4Gji6kp826paQJJ1Y5rkuvEEC4'
-#access_token_secret = 'BNhoUM7NzOJKyMQWt5h1j5UCb7Pde59b7VRBYxjkP5GFF'
+
 
 #Sam
-consumer_key = '2j6MjWknwLfcXPjmYpl4mAHbw'
-consumer_secret = '23gWc5HsYx1id6uZHdOO00JSasK00helALUAk3q6aH2wrLr47S'
-access_token = '615516918-mW6rR0MnsjeKbQU0xe5g3gjqIHXblZZDo7FFbGsw'
-access_token_secret = 'f5b091VhRscJDvDtuFzW3AyGopVxS6dTcFRmtEq3duCMe'
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_token_secret = ''
 
-#Alain
-#consumer_key = 'rwlXK0rRwM5e1KxV3kkLi6k3n'
-#consumer_secret ='3IiE7g4mXy05Ri37UnWMeMRNzbQeqLLLL43TfeNbTRsyGU02sK'
-#access_token ='2826688716-bZ4pU76OfB8AVJMBbjLABnOzqYoIUWi0gfsCrN8'
-#access_token_secret=  'hPQbjfATJ1pCvFj4Rae2fUoUbBrVoStQ1ewDeNlhxyEAf'
+
 
 graphdb = Graph()
 graphdb.delete_all()
