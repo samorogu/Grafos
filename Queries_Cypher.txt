@@ -1,0 +1,48 @@
+#Cuantos usuarios hay en el grafo?
+MATCH (u:User) RETURN count(u);
+
+#Cuantos articulos hay en el grafo?
+MATCH (url:URL) RETURN count(url);
+
+#Cuantos articulos he compartido en twitter?
+MATCH (user:User {username: ‘samo2704’})-[:SHARED]->(u:URL) RETURN count(u);
+
+#quien ha compartido más artículos?
+MATCH (u:User)-[s:SHARED]->(URL)
+WITH u, count(s) AS num
+RETURN u.username AS user, num ORDER BY num DESC LIMIT 5;
+
+#Cuantos artículos se han compartido en promedio?
+MATCH (u:User)-[s:SHARED]->(URL)
+WITH u, count(s) AS num
+RETURN avg(num) AS average_shares;
+
+#Hay artículos que se han compartido varias veces?
+MATCH (u:URL)<-[s:SHARED]-()
+WITH u, count(s) as shares
+RETURN u.url as url, shares ORDER BY shares DESC LIMIT 5;
+
+#Cuales son las palabras clave de los artículos?
+MATCH (u:URL)-[r:IS_ABOUT]->(kw:Keyword)
+WITH kw, count(r) AS num
+RETURN kw.text as keyword, num ORDER BY num DESC LIMIT 10;
+
+#Cuales son las palabras clave de los artículos que he compartido?
+MATCH (u:User {username: ‘samo2704’})
+MATCH (u)-[:SHARED]-(a:URL)-[r:IS_ABOUT]->(kw:Keyword)
+WITH kw, count(r) AS num
+RETURN kw.text as keyword, num
+ORDER BY num DESC LIMIT 25;
+
+#Recomendación de artículos
+MATCH (user:User {username: ‘samo2704’})
+MATCH (user)-[:SHARED]->(url:URL)
+MATCH (url)-[:IS_ABOUT]->(kw:Keyword)<-[:IS_ABOUT]-(a:URL)
+RETURN DISTINCT a.url LIMIT 10;
+
+#Número de caminos para determinar un puntaje de recomendaciones
+MATCH (u:User {username: 'lyonwj'})-[:SHARED]->(url:URL)
+MATCH (url)-[r:IS_ABOUT]->(kw:Keyword)<-[r2:IS_ABOUT]-(u2:URL)
+WHERE NOT (u)-[:SHARED]->(u2)
+WITH u2.url as article, count(r2) as score
+RETURN article, score ORDER BY score DESC LIMIT 10;
